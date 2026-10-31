@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title layout:title-pattern="$CONTENT_TITLE">NorthWind</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        body { margin: 0; background: #f4f6f9; font-family: Arial, Helvetica, sans-serif; }
+        .main-sidebar { position: fixed; top: 0; left: 0; width: 250px; height: 100vh;
+            background: #343a40; color: white; overflow-y: auto; }
+        .brand-link { display: block; padding: 15px; color: white; text-decoration: none;
+            font-size: 20px; font-weight: bold; border-bottom: 1px solid #4b545c; }
+        .user-panel { padding: 15px; border-bottom: 1px solid #4b545c; }
+        .online-status { color: #28a745; font-size: 13px; }
+        .sidebar-menu { padding-top: 10px; }
+        .sidebar-menu a { display: block; color: #c2c7d0; text-decoration: none; padding: 10px 15px; }
+        .sidebar-menu a:hover, .sidebar-menu a.active { background: #007bff; color: white; }
+        .content-wrapper { margin-left: 250px; min-height: 100vh; }
+        .top-navbar { background: white; border-bottom: 1px solid #dee2e6; padding: 12px 20px; }
+        .page-content { padding: 20px; }
+        .logout-btn { margin: 10px 15px; }
+        .collapse .nav-link { font-size: 14px; color: #c2c7d0; }
+        .collapse .nav-link:hover { background: #495057; color: white; }
+        .chart-container { position: relative; width: 100%; height: 400px; }
+        #salesChart { width: 100% !important; height: 100% !important; }
+    </style>
+</head>
+<body>
+
+<aside class="main-sidebar">
+
+    <a th:href="@{/dashboard}" class="brand-link">
+        <i class="fa-solid fa-globe me-2"></i> NorthWind
+    </a>
+
+    <div class="user-panel d-flex align-items-center gap-2">
+
+        <img th:if="${session.profilePictureSrc != null}"
+             th:src="${session.profilePictureSrc}"
+             class="rounded-circle" width="45" height="45"
+             style="object-fit:cover" alt="Profile">
+        <i th:unless="${session.profilePictureSrc != null}"
+           class="fa-solid fa-circle-user fs-1 text-secondary"></i>
+
+        <div>
+            <div><strong th:text="${session.username != null ? session.username : 'Guest'}">Guest</strong></div>
+            <div class="online-status"><i class="fa-solid fa-circle"></i> Online</div>
+        </div>
+
+    </div>
+
+    <a th:href="@{/logout}" class="btn btn-danger w-75 logout-btn">Logout</a>
+
+    <div class="sidebar-menu">
+
+        <a th:href="@{/dashboard}" class="nav-link active">
+            <i class="fa-solid fa-gauge-high me-2"></i> Dashboard
+        </a>
+
+        <!-- HR -->
+        <a class="nav-link d-flex justify-content-between align-items-center"
+           data-bs-toggle="collapse" href="#hrMenu">
+            <span><i class="fa-solid fa-users me-2"></i> HR</span>
+            <i class="fa-solid fa-angle-left"></i>
+        </a>
+        <div class="collapse" id="hrMenu">
+            <a class="nav-link ps-4" th:href="@{/employees}">Employees</a>
+            <a class="nav-link ps-4" th:href="@{/customers}">Customers</a>
+        </div>
+
+        <!-- Business -->
+        <a class="nav-link d-flex justify-content-between align-items-center"
+           data-bs-toggle="collapse" href="#businessMenu">
+            <span><i class="fa-solid fa-briefcase me-2"></i> Business</span>
+            <i class="fa-solid fa-angle-left"></i>
+        </a>
+        <div class="collapse" id="businessMenu">
+            <a class="nav-link ps-4" th:href="@{/products}">Products</a>
+            <a class="nav-link ps-4" th:href="@{/categories}">Categories</a>
+        </div>
+
+        <!-- Orders -->
+        <a class="nav-link d-flex justify-content-between align-items-center"
+           data-bs-toggle="collapse" href="#ordersMenu">
+            <span><i class="fa-solid fa-cart-shopping me-2"></i> Orders</span>
+            <i class="fa-solid fa-angle-left"></i>
+        </a>
+        <div class="collapse" id="ordersMenu">
+            <a class="nav-link ps-4" th:href="@{/dashboard/orders/all}">Manage Orders</a>
+            <a class="nav-link ps-4" th:href="@{/dashboard/orders/shippers}">Shippers</a>
+        </div>
+
+        <!-- Reports -->
+        <a class="nav-link d-flex justify-content-between align-items-center"
+           data-bs-toggle="collapse" href="#reportsMenu">
+            <span><i class="fa-solid fa-chart-bar me-2"></i> Reports</span>
+            <i class="fa-solid fa-angle-left"></i>
+        </a>
+        <div class="collapse" id="reportsMenu">
+            <a class="nav-link ps-4" th:href="@{/report/sales-by-category}">Sales By Category</a>
+            <a class="nav-link ps-4" th:href="@{/report/supplier-product}">Products By Supplier</a>
+        </div>
+
+    </div>
+</aside>
+
+<div class="content-wrapper">
+    <nav class="top-navbar"><span class="fw-semibold">NorthWind</span></nav>
+
+    <div class="page-content" layout:fragment="content">
+        <!-- page content goes here -->
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>

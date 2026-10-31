@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main}">
+<head>
+    <title>Home</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="container-fluid px-0">
+
+        <!-- Hero Section -->
+        <div class="position-relative overflow-hidden mb-5 mx-auto rounded shadow-sm" style="height: 500px; width: 70%;">
+
+            <img th:src="@{/images/northwind_group_cover.jpeg}" alt="Northwind Cover"
+                 class="w-100 h-100 d-block"
+                 style="object-fit: cover; object-position: center top;">
+
+            <!-- Dark layer for contrast -->
+            <div class="position-absolute top-0 start-0 w-100 h-100"
+                 style="background: rgba(0, 0, 0, 0.5); z-index: 1;"></div>
+
+            <!-- Hero text -->
+            <div class="position-absolute top-50 start-50 translate-middle text-center text-white w-100 px-3"
+                 style="z-index: 2;">
+                <h1 class="display-4 fw-bold">Welcome to Northwind</h1>
+                <p class="lead fs-4 mt-2">Complete Business Management System</p>
+            </div>
+        </div>
+
+        <!-- Introduction Card -->
+        <div class="container">
+            <div class="card shadow-lg border-0 mb-5">
+                <div class="card-body p-4 p-md-5">
+                    <h2 class="text-primary mb-4 text-center text-md-start">About Northwind Database</h2>
+
+                    <p class="lead text-secondary">
+                        Northwind is a fictional company frequently used as a sample database for learning database
+                        management, SQL, and application development.
+                    </p>
+                    <p>
+                        It represents an international trading company that imports and exports specialty food products
+                        around the world. The database contains realistic business information and relationships that
+                        help developers and students understand how enterprise systems work.
+                    </p>
+                    <p>The Northwind database includes interconnected entities such as:</p>
+
+                    <div class="row g-4 mt-3">
+                        <div class="col-sm-6 col-md-3">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-body text-center">
+                                    <div class="fs-2 mb-2">👥</div>
+                                    <h5 class="fw-bold">Customers</h5>
+                                    <p class="small text-muted mb-0">Store customer information and relationships.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-body text-center">
+                                    <div class="fs-2 mb-2">📦</div>
+                                    <h5 class="fw-bold">Products</h5>
+                                    <p class="small text-muted mb-0">Manage inventory and product details.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-body text-center">
+                                    <div class="fs-2 mb-2">📝</div>
+                                    <h5 class="fw-bold">Orders</h5>
+                                    <p class="small text-muted mb-0">Track sales and customer purchases.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-body text-center">
+                                    <div class="fs-2 mb-2">🚚</div>
+                                    <h5 class="fw-bold">Suppliers</h5>
+                                    <p class="small text-muted mb-0">Manage suppliers and logistics operations.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Section -->
+            <div class="row g-4 text-center mb-5">
+                <div class="col-md-4">
+                    <div class="card shadow-sm border-0 h-100">
+                        <div class="card-body p-4">
+                            <div class="fs-2 text-primary mb-2">📊</div>
+                            <h5 class="fw-bold">Dashboard Reports</h5>
+                            <p class="mb-0 text-muted">
+                                Analyze sales, customers, and inventory through an interactive dashboard.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card shadow-sm border-0 h-100">
+                        <div class="card-body p-4">
+                            <div class="fs-2 text-success mb-2">⚡</div>
+                            <h5 class="fw-bold">CRUD Operations</h5>
+                            <p class="mb-0 text-muted">Easily create, update, delete, and manage business data.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card shadow-sm border-0 h-100">
+                        <div class="card-body p-4">
+                            <div class="fs-2 text-warning mb-2">🔐</div>
+                            <h5 class="fw-bold">Secure Access</h5>
+                            <p class="mb-0 text-muted">Role-based authentication and authorization for users.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

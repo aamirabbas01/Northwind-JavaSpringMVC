@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main}">
+<head>
+    <title>Login</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-4">
+            <div class="card shadow">
+                <div class="card-body">
+
+                    <h4 class="text-center mb-3">Northwind</h4>
+                    <p class="text-center">Sign in to start your session</p>
+
+                    <div class="alert alert-danger" th:if="${error}" th:text="${error}"></div>
+
+                    <form method="post" th:action="@{/login}">
+
+                        <div class="input-group mb-3">
+                            <input type="email" name="email" class="form-control"
+                                   placeholder="Email" th:value="${email}" required>
+                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <input type="password" name="password" class="form-control"
+                                   placeholder="Password" required>
+                            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                        </div>
+
+                        <button class="btn btn-primary w-100" type="submit">Sign In</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

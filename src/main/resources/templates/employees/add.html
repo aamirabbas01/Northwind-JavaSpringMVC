@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/dashboard}">
+<head>
+    <title>Add Employee</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="card">
+
+        <div class="card-header bg-info text-white">
+            <h3 class="card-title">Add Employee</h3>
+        </div>
+
+        <div class="card-body">
+
+            <div class="alert alert-danger" th:if="${error}" th:text="${error}"></div>
+
+            <form method="post" enctype="multipart/form-data" th:action="@{/employees/add}">
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+                        <label>Last Name</label>
+                        <input type="text" name="LastName" class="form-control">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>First Name</label>
+                        <input type="text" name="FirstName" class="form-control">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Title</label>
+                        <input type="text" name="Title" class="form-control">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Title Of Courtesy</label>
+                        <input type="text" name="TitleOfCourtesy" class="form-control">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Birth Date</label>
+                        <input type="date" name="BirthDate" class="form-control">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Hire Date</label>
+                        <input type="date" name="HireDate" class="form-control">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>City</label>
+                        <input type="text" name="City" class="form-control">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Region</label>
+                        <input type="text" name="Region" class="form-control">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Country</label>
+                        <input type="text" name="Country" class="form-control">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Postal Code</label>
+                        <input type="text" name="PostalCode" class="form-control">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Address</label>
+                        <input type="text" name="Address" class="form-control">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Photo</label>
+                        <div class="mb-2">
+                            <img id="photoPreview" src="" alt="Photo preview"
+                                 style="max-width:150px; display:none" class="img-thumbnail">
+                        </div>
+                        <input type="file" name="Photo" id="photoInput" class="form-control" accept="image/*">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Home Phone</label>
+                        <input type="text" name="HomePhone" class="form-control">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Extension</label>
+                        <input type="text" name="Extension" class="form-control">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Reports To</label>
+                        <select name="ReportsTo" class="form-select">
+                            <option value="">Select Manager</option>
+                            <option th:each="m : ${managers}"
+                                    th:value="${m.employeeId}"
+                                    th:text="${m.fullName}"></option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Photo Path</label>
+                        <input type="text" name="PhotoPath" class="form-control">
+                    </div>
+
+                    <div class="col-md-12 mb-3">
+                        <label>Notes</label>
+                        <textarea class="form-control" name="Notes" rows="4"></textarea>
+                    </div>
+
+                </div>
+
+                <button type="submit" class="btn btn-primary">Save</button>
+                <a th:href="@{/employees}" class="btn btn-secondary">Back to List</a>
+
+            </form>
+
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("photoInput").addEventListener("change", function (e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                const preview = document.getElementById("photoPreview");
+                preview.src = event.target.result;
+                preview.style.display = "block";
+            };
+            reader.readAsDataURL(file);
+        });
+    </script>
+
+</div>
+
+</body>
+</html>

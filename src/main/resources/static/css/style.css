@@ -1,0 +1,65 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    background: #f3f3f3;
+    border-bottom: 1px solid #ddd;
+    padding: 12px 20px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.nav-right {
+    display: flex;
+    gap: 10px;
+}
+
+.logo {
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #555;
+    font-size: 20px;
+}
+
+.navbar a:hover {
+    color: #0078d4;
+}
+
+
+.container {
+    text-align: center;
+    padding: 20px;
+}
+
+.hero img {
+    width: 65%;
+    max-width: 1080px;
+}
+
+.content {
+    max-width: 800px;
+    margin: 20px auto;
+    text-align: left;
+    font-size: 12px;
+}
+
+.home-image {
+    width: 60% !important;
+    max-width: 900px !important;
+    height: auto !important;
+}

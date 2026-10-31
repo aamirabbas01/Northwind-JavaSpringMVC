@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title layout:title-pattern="$CONTENT_TITLE">Northwind</title>
+    <!-- add your CSS (e.g. Bootstrap, home-image style) here -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<!-- navbar here -->
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+    <div class="container-fluid">
+        <!-- Brand -->
+        <a class="navbar-brand" th:href="@{/}">NorthWind</a>
+
+        <!-- Responsive Toggle Button -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNorthWind"
+                aria-controls="navbarNorthWind" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Collapsible Wrapper -->
+        <div class="collapse navbar-collapse" id="navbarNorthWind">
+            <!-- Navigation Links -->
+            <div class="navbar-nav me-auto mb-2 mb-lg-0">
+                <a class="nav-link" th:href="@{/}">Home</a>
+                <a class="nav-link" th:href="@{/privacy}">Privacy</a>
+                <a class="nav-link" th:if="${session.username != null}" th:href="@{/dashboard}">Dashboard</a>
+            </div>
+
+            <!-- Centered Welcome Message -->
+            <h4 class="navbar-text my-2 my-lg-0 mx-auto text-center order-lg-1">
+                Welcome to Our Company Website!
+            </h4>
+
+            <!-- Auth / User Links -->
+            <!-- Auth / User Links -->
+            <div class="d-flex flex-column flex-lg-row align-items-start align-items-lg-center gap-2 gap-lg-3 order-lg-2">
+
+                <!-- Logged in -->
+                <th:block th:if="${session.username != null}">
+                    <img th:if="${session.profilePictureSrc != null}"
+                         th:src="${session.profilePictureSrc}"
+                         class="rounded-circle" width="32" height="32"
+                         style="object-fit:cover" alt="Profile">
+                    <i th:unless="${session.profilePictureSrc != null}"
+                       class="fa-solid fa-circle-user fs-4 text-secondary"></i>
+
+                    <span class="navbar-text">Hello <strong th:text="${session.username}"></strong></span>
+                    <a th:href="@{/logout}" class="nav-link">Logout</a>
+                </th:block>
+
+                <!-- Logged out -->
+                <th:block th:unless="${session.username != null}">
+                    <a th:href="@{/register}" class="nav-link">Register</a>
+                    <a th:href="@{/login}" class="nav-link">Login</a>
+                </th:block>
+
+            </div>
+        </div>
+    </div>
+</nav>
+<main layout:fragment="content">
+    <!-- child page content goes here -->
+</main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

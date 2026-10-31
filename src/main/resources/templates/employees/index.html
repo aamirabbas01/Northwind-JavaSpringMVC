@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/dashboard}">
+<head>
+    <title>Employees</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="container mt-4">
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2>Employees</h2>
+            <a href="/employees/add" class="btn btn-primary">New Employee</a>
+        </div>
+
+        <div class="alert alert-danger" th:if="${error}" th:text="${error}"></div>
+
+        <div class="card mb-4">
+            <div class="card-header bg-info text-white">Search</div>
+
+            <div class="card-body">
+                <form method="get" th:action="@{/employees}">
+
+                    <div class="row g-3 align-items-end">
+
+                        <div class="col-md-4">
+                            <label class="form-label">Find by name</label>
+                            <input type="text" name="name" th:value="${name}" class="form-control">
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Find by Reports To</label>
+                            <select name="reportsTo" class="form-select">
+                                <option value="">Select</option>
+                                <option th:each="manager : ${reportsToList}"
+                                        th:value="${manager}"
+                                        th:text="${manager}"
+                                        th:selected="${manager == reportsTo}"></option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-4 d-flex gap-2">
+                            <button type="submit" class="btn btn-primary">Search</button>
+                            <a th:href="@{/employees}" class="btn btn-secondary">Reset</a>
+                        </div>
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+        <table class="table table-bordered table-hover">
+            <thead class="table-light">
+            <tr>
+                <th>Full Name</th>
+                <th>City</th>
+                <th>Region</th>
+                <th>Country</th>
+                <th width="140">Actions</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="emp : ${employees}">
+                <td th:text="${emp.fullName}"></td>
+                <td th:text="${emp.city}"></td>
+                <td th:text="${emp.region}"></td>
+                <td th:text="${emp.country}"></td>
+                <td>
+                    <div class="d-flex gap-2">
+
+                        <a th:href="@{/employees/edit/{id}(id=${emp.employeeId})}" class="text-warning" title="Edit">
+                            <i class="fa-solid fa-pen"></i>
+                        </a>
+
+                        <a th:href="@{/employees/{id}(id=${emp.employeeId})}" class="text-primary" title="View">
+                            <i class="fa-solid fa-eye"></i>
+                        </a>
+
+                        <a th:href="@{/employees/delete/{id}(id=${emp.employeeId})}" class="text-danger" title="Delete">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+
+            <tr th:if="${#lists.isEmpty(employees)}">
+                <td colspan="5" class="text-center">No employees found</td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/dashboard}">
+<head>
+    <title>Employee Details</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="card">
+
+        <div class="card-header bg-info text-white">
+            <h3 class="card-title" th:text="${employee.fullName}">Employee</h3>
+        </div>
+
+        <div class="card-body">
+            <div class="row">
+
+                <div class="col-md-3 mb-3" th:if="${employee.photoBase64 != null and !employee.photoBase64.isEmpty()}">
+                    <img class="img-thumbnail" alt="Employee Photo"
+                         th:src="'data:image/bmp;base64,' + ${employee.photoBase64}">
+                </div>
+
+                <div class="col-md-9">
+                    <dl class="row">
+                        <dt class="col-sm-4">Title</dt>
+                        <dd class="col-sm-8" th:text="${employee.titleOfCourtesy} + ' ' + ${employee.title}"></dd>
+
+                        <dt class="col-sm-4">Birth Date</dt>
+                        <dd class="col-sm-8" th:text="${employee.birthDateOnly}"></dd>
+
+                        <dt class="col-sm-4">Hire Date</dt>
+                        <dd class="col-sm-8" th:text="${employee.hireDateOnly}"></dd>
+
+                        <dt class="col-sm-4">Address</dt>
+                        <dd class="col-sm-8" th:text="${employee.address}"></dd>
+
+                        <dt class="col-sm-4">City</dt>
+                        <dd class="col-sm-8" th:text="${employee.city}"></dd>
+
+                        <dt class="col-sm-4">Region</dt>
+                        <dd class="col-sm-8" th:text="${employee.region}"></dd>
+
+                        <dt class="col-sm-4">Postal Code</dt>
+                        <dd class="col-sm-8" th:text="${employee.postalCode}"></dd>
+
+                        <dt class="col-sm-4">Country</dt>
+                        <dd class="col-sm-8" th:text="${employee.country}"></dd>
+
+                        <dt class="col-sm-4">Home Phone</dt>
+                        <dd class="col-sm-8" th:text="${employee.homePhone}"></dd>
+
+                        <dt class="col-sm-4">Extension</dt>
+                        <dd class="col-sm-8" th:text="${employee.extension}"></dd>
+
+                        <dt class="col-sm-4">Reports To</dt>
+                        <dd class="col-sm-8" th:text="${employee.reportsToName}"></dd>
+
+                        <dt class="col-sm-4">Notes</dt>
+                        <dd class="col-sm-8" th:text="${employee.notes}"></dd>
+                    </dl>
+                </div>
+
+            </div>
+
+            <a th:href="@{/employees/edit/{id}(id=${employee.employeeId})}" class="btn btn-warning">
+                <i class="fa-solid fa-pen"></i> Edit
+            </a>
+            <a th:href="@{/employees}" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

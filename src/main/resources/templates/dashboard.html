@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/dashboard}">
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="row mb-4">
+        <div class="col-lg-3 col-md-6 mb-3" th:each="box : ${metrics}">
+            <div class="card text-white" th:classappend="${box.color}">
+                <div class="card-body">
+                    <h3 class="fw-bold" th:text="${box.value}">0</h3>
+                    <p th:text="${box.title}">Title</p>
+                </div>
+                <div class="card-footer">
+                    <a th:href="@{${box.link}}" class="text-white text-decoration-none">More Info →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Sales Overview (1997-1998)</h3>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="salesChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const salesData = /*[[${salesData}]]*/ [];
+
+            new Chart(document.getElementById("salesChart"), {
+                type: 'line',
+                data: {
+                    labels: salesData.map(item => item.month),
+                    datasets: [{
+                        label: 'Sales',
+                        data: salesData.map(item => item.totalSales),
+                        borderColor: '#3c8dbc',
+                        backgroundColor: 'rgba(60,141,188,.15)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+        });
+    </script>
+
+</div>
+
+</body>
+</html>

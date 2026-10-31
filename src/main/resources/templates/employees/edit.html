@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/dashboard}">
+<head>
+    <title>Edit Employee</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="card">
+
+        <div class="card-header bg-info text-white">
+            <h3 class="card-title">Edit Employee</h3>
+        </div>
+
+        <div class="card-body">
+
+            <form method="post" enctype="multipart/form-data"
+                  th:action="@{/employees/edit/{id}(id=${employee.employeeId})}">
+
+                <!-- not shown in the Django form, but kept so saving doesn't blank them -->
+                <input type="hidden" name="PostalCode" th:value="${employee.postalCode}">
+                <input type="hidden" name="PhotoPath" th:value="${employee.photoPath}">
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+                        <label>Last Name</label>
+                        <input type="text" name="LastName" class="form-control" th:value="${employee.lastName}">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>First Name</label>
+                        <input type="text" name="FirstName" class="form-control" th:value="${employee.firstName}">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Title</label>
+                        <input type="text" name="Title" class="form-control" th:value="${employee.title}">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Title Of Courtesy</label>
+                        <input type="text" name="TitleOfCourtesy" class="form-control"
+                               th:value="${employee.titleOfCourtesy}">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Birth Date</label>
+                        <input type="date" name="BirthDate" class="form-control"
+                               th:value="${employee.birthDateOnly}">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Hire Date</label>
+                        <input type="date" name="HireDate" class="form-control"
+                               th:value="${employee.hireDateOnly}">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>City</label>
+                        <input type="text" name="City" class="form-control" th:value="${employee.city}">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Region</label>
+                        <input type="text" name="Region" class="form-control" th:value="${employee.region}">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Country</label>
+                        <input type="text" name="Country" class="form-control" th:value="${employee.country}">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Home Phone</label>
+                        <input type="text" name="HomePhone" class="form-control" th:value="${employee.homePhone}">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Extension</label>
+                        <input type="text" name="Extension" class="form-control" th:value="${employee.extension}">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Reports To</label>
+                        <select name="ReportsTo" class="form-select">
+                            <option value="">Select Manager</option>
+                            <option th:each="m : ${managers}"
+                                    th:value="${m.employeeId}"
+                                    th:text="${m.fullName}"
+                                    th:selected="${m.employeeId == employee.reportsTo}"></option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Address</label>
+                        <input type="text" name="Address" class="form-control" th:value="${employee.address}">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Photo</label>
+
+                        <div class="mb-2">
+                            <img id="photoPreview" alt="Employee Photo" class="img-thumbnail"
+                                 style="max-width:150px;"
+                                 th:src="${employee.photoBase64 != null and !employee.photoBase64.isEmpty()}
+                                         ? 'data:image/bmp;base64,' + ${employee.photoBase64} : ''"
+                                 th:style="${employee.photoBase64 != null and !employee.photoBase64.isEmpty()}
+                                         ? 'max-width:150px;' : 'max-width:150px;display:none;'">
+                        </div>
+
+                        <input type="file" name="Photo" class="form-control" id="photoInput" accept="image/*">
+                    </div>
+
+                    <div class="col-md-12 mb-3">
+                        <label>Notes</label>
+                        <textarea name="Notes" class="form-control" rows="5"
+                                  th:text="${employee.notes}"></textarea>
+                    </div>
+
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa-solid fa-floppy-disk"></i> Save
+                </button>
+                <a th:href="@{/employees}" class="btn btn-secondary">Back to List</a>
+
+            </form>
+
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("photoInput").addEventListener("change", function (e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                const preview = document.getElementById("photoPreview");
+                preview.src = event.target.result;
+                preview.style.display = "block";
+            };
+            reader.readAsDataURL(file);
+        });
+    </script>
+
+</div>
+
+</body>
+</html>
